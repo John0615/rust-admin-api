@@ -1,7 +1,6 @@
 
-use actix_web::{Error, web, HttpResponse};
+use actix_web::{Error, HttpResponse};
 use juniper::http::graphiql::graphiql_source;
-use crate::cli_args::Opt;
 
 pub(super) async fn graphql() -> Result<HttpResponse, Error> {
 
@@ -11,8 +10,8 @@ pub(super) async fn graphql() -> Result<HttpResponse, Error> {
         .body("aa"))
 }
 
-pub(super) fn graphiql(opt: web::Data<Opt>) -> HttpResponse {
-    let html = graphiql_source(&format!("http://127.0.0.1:{}/graphql", opt.port));
+pub(super) fn graphiql() -> HttpResponse {
+    let html = graphiql_source("http://127.0.0.1:3000/graphql");
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
         .body(html)

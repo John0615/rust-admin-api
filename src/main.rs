@@ -9,14 +9,13 @@ use actix_web::{ App, HttpServer };
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    println!("Hello, world!");
 
     let opt = {
         use structopt::StructOpt;
         cli_args::Opt::from_args()
     };
     let port = opt.port;
-
+    eprintln!("Listening on 0.0.0.0:{}", port);
     HttpServer::new(|| {
         App::new()
             .configure(route::index)
