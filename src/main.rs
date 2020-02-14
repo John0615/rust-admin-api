@@ -2,6 +2,8 @@ mod route;
 mod user;
 mod graphql;
 mod cli_args;
+mod database;
+mod errors;
 
 use actix_web::{ App, HttpServer };
 
@@ -14,10 +16,13 @@ async fn main() -> std::io::Result<()> {
         use structopt::StructOpt;
         cli_args::Opt::from_args()
     };
+
     let port = opt.port;
     eprintln!("Listening on 0.0.0.0:{}", port);
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
+            .data(database::pool::establish_connection(opt.clone()))
+            .data(opt.clone())
             .configure(route::index)
             .configure(graphql::route)
     })

@@ -10,11 +10,9 @@ pub(crate) struct Opt {
     // /// Domain
     // #[structopt(long, env = "DOMAIN", default_value = "localhost")]
     // pub domain: String,
-
-    // /// Database URL
-    // #[structopt(long, env = "DATABASE_URL")]
-    // pub database_url: String,
-
+    /// Database URL
+    #[structopt(long, env = "DATABASE_URL")]
+    pub database_url: String,
     // /// Secret Key for Auth Cookie
     // #[structopt(
     //     long,
