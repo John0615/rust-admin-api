@@ -1,9 +1,14 @@
+#[macro_use]
+extern crate diesel;
+
 mod route;
 mod user;
 mod graphql;
 mod cli_args;
 mod database;
 mod errors;
+mod models;
+mod schema;
 use actix_web::{ App, HttpServer };
 
 

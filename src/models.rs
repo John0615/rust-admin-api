@@ -4,7 +4,7 @@ pub struct Users {
     pub salt: String,
     pub password_digest: String,
     pub phone: String,
-    pub email: -> String,
+    pub email: String,
     pub role: String,
     pub login_name: String,
     pub status: String,
