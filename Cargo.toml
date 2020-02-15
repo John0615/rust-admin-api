@@ -16,4 +16,6 @@ regex = "1"
 lazy_static = "1"
 thiserror = "1.0"
 uuid = { version = "0.7", features = ["serde", "v4"] }
+dotenv = "0.15"
+
 

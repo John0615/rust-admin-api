@@ -4,13 +4,14 @@ mod graphql;
 mod cli_args;
 mod database;
 mod errors;
-
 use actix_web::{ App, HttpServer };
 
 
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
+    // 加载环境变量
+    dotenv::dotenv().ok();
 
     let opt = {
         use structopt::StructOpt;
