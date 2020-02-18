@@ -13,7 +13,7 @@ pub(super) async fn graphql(
 ) -> Result<HttpResponse, Error> {
 
     let ctx = Context {
-        dbpool: pool.get_ref().to_owned(),
+        dbpool: pool.get_ref().to_owned()
     };
     let res = web::block(move || {
         let res = data.execute(&schema, &ctx);

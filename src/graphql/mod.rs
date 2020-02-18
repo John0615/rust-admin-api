@@ -1,5 +1,5 @@
 use actix_web::web;
-mod schemas;
+pub mod schemas;
 mod handler;
 
 pub(super) fn route(cfg: &mut web::ServiceConfig) {

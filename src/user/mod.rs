@@ -1,3 +1,6 @@
+pub(crate) mod service;
+pub mod model;
+
 use actix_web::{HttpResponse, Responder};
 
 pub async fn aa() -> impl Responder {

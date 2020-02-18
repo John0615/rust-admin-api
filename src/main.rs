@@ -8,7 +8,6 @@ mod graphql;
 mod cli_args;
 mod database;
 mod errors;
-mod models;
 mod schema;
 use actix_web::{ App, HttpServer };
 
@@ -26,9 +25,14 @@ async fn main() -> std::io::Result<()> {
 
     let port = opt.port;
     eprintln!("Listening on 0.0.0.0:{}", port);
+
+    // Create Juniper schema
+    let schema = std::sync::Arc::new(crate::graphql::schemas::root::create_schema());
+
     HttpServer::new(move || {
         App::new()
             .data(database::pool::establish_connection(opt.clone()))
+            .data(schema.clone())
             .data(opt.clone())
             .configure(route::index)
             .configure(graphql::route)
