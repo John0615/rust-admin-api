@@ -1,5 +1,5 @@
 use crate::database::Pool;
-use crate::user::model::Users;
+use crate::app::user::model::Users;
 use juniper::Context as JuniperContext;
 use juniper::FieldResult;
 

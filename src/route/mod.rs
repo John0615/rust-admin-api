@@ -1,5 +1,5 @@
 use actix_web::web;
-use crate::user::{ aa, bb };
+use crate::app::user::{ aa, bb };
 
 
 pub fn index(cfg: &mut web::ServiceConfig) {

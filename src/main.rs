@@ -3,7 +3,7 @@ extern crate diesel;
 extern crate serde_json;
 
 mod route;
-mod user;
+mod app;
 mod graphql;
 mod cli_args;
 mod database;
