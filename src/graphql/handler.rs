@@ -1,30 +1,26 @@
 use std::sync::Arc;
-
-use actix_web::{web, Error, HttpResponse};
+// use crate::cli_args::Opt;
+use actix_web::{error, web, Error, HttpResponse};
 use juniper::http::graphiql::graphiql_source;
 use crate::graphql::schemas::root::{Context, Schema};
 use juniper::http::GraphQLRequest;
-use crate::database::Pool;
+use crate::database::{db_connection, Pool};
 
 pub(super) async fn graphql(
     pool: web::Data<Pool>,
     schema: web::Data<Arc<Schema>>,
     data: web::Json<GraphQLRequest>,
 ) -> Result<HttpResponse, Error> {
+    let db_pool = db_connection(&pool)?;
 
-    let ctx = Context {
-        dbpool: pool.get_ref().to_owned()
-    };
-    let res = web::block(move || {
-        let res = data.execute(&schema, &ctx);
-        Ok::<_, serde_json::error::Error>(serde_json::to_string(&res)?)
-    })
-    .await
-    .map_err(Error::from)?;
+    let ctx = Context::new(db_pool);
+
+    let res = data.execute(&schema, &ctx);
+    let json = serde_json::to_string(&res).map_err(error::ErrorInternalServerError)?;
 
     Ok(HttpResponse::Ok()
         .content_type("application/json")
-        .body(res))
+        .body(json))
 }
 
 pub(super) fn graphiql() -> HttpResponse {

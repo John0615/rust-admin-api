@@ -1,4 +1,7 @@
-#[derive(Queryable, juniper::GraphQLObject)]
+
+use chrono::*;
+
+#[derive(Debug, Queryable, juniper::GraphQLObject)]
 pub struct Users {
     pub id: i32,
     pub salt: String,
@@ -8,6 +11,6 @@ pub struct Users {
     pub role: String,
     pub login_name: String,
     pub status: String,
-    pub inserted_at: String,
-    pub updated_at: String,
+    pub inserted_at: NaiveDateTime,
+    pub updated_at: NaiveDateTime,
 }

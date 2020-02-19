@@ -1,25 +1,33 @@
 use crate::app::user::model::Users;
 use crate::app::user::service as user;
-use crate::database::Pool;
+// use crate::cli_args::Opt;
+use crate::database::PooledConnection;
 use juniper::Context as JuniperContext;
-use juniper::FieldResult;
+use crate::errors::ServiceResult;
+use std::sync::Arc;
 
 // use crate::user::service as user;
 use juniper;
 use juniper::RootNode;
 
 pub struct Context {
-    pub dbpool: Pool,
+    pub db: Arc<PooledConnection>,
 }
 
 impl JuniperContext for Context {}
+
+impl Context {
+    pub fn new(pool: PooledConnection) -> Self {
+        Self { db: Arc::new(pool) }
+    }
+}
 
 pub struct QueryRoot;
 
 #[juniper::object(Context = Context)]
 impl QueryRoot {
-    pub fn users(context: &Context) -> FieldResult<Vec<Users>> {
-        user::list::find_all_users(&context)
+    pub fn users(context: &Context) -> ServiceResult<Vec<Users>> {
+        user::list::find_all_users(&context, 10)
     }
 }
 
