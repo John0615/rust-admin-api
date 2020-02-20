@@ -12,5 +12,5 @@ pub struct Users {
     pub login_name: String,
     pub status: String,
     pub inserted_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime,
+    pub updated_at: Option<naive::NaiveDateTime>,
 }
