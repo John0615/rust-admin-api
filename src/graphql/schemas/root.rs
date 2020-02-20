@@ -1,5 +1,5 @@
-use crate::app::user::model::Users;
-use crate::app::user::service as user;
+use crate::modules::user::model::Users;
+use crate::modules::user::service as user;
 // use crate::cli_args::Opt;
 use crate::database::PooledConnection;
 use juniper::Context as JuniperContext;

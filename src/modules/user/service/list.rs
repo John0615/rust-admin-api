@@ -1,6 +1,6 @@
 use crate::database::PooledConnection;
 use crate::errors::ServiceResult;
-use crate::app::user::model::{Users};
+use crate::modules::user::model::{Users};
 use crate::graphql::schemas::root::Context;
 use diesel::prelude::*;
 

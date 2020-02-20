@@ -4,7 +4,7 @@ extern crate serde_json;
 
 
 mod route;
-mod app;
+mod modules;
 mod graphql;
 mod cli_args;
 mod database;
