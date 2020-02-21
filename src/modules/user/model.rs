@@ -1,4 +1,3 @@
-
 use chrono::*;
 
 #[derive(Debug, Queryable, juniper::GraphQLObject)]
@@ -13,4 +12,11 @@ pub struct Users {
     pub status: String,
     pub inserted_at: NaiveDateTime,
     pub updated_at: Option<naive::NaiveDateTime>,
+}
+
+#[derive(Debug, Clone)]
+pub struct SlimUser {
+    pub login_name: String,
+    pub email: String,
+    pub role: String,
 }

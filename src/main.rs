@@ -1,15 +1,17 @@
 #[macro_use]
 extern crate diesel;
 extern crate serde_json;
+extern crate serde_derive;
 
-
-mod route;
-mod modules;
-mod graphql;
 mod cli_args;
 mod database;
 mod errors;
+mod graphql;
+mod jwt;
 mod schema;
+mod modules;
+mod route;
+
 use actix_web::{ App, HttpServer };
 
 

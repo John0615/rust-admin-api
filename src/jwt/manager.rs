@@ -1,7 +1,7 @@
 use crate::errors::ServiceError;
 use crate::jwt::model::Claims;
-use crate::user::model::SlimUser;
-use jsonwebtoken::{decode, encode, Algorithm, Header, Validation};
+use crate::modules::user::model::SlimUser;
+use jsonwebtoken::{decode, encode, Algorithm, DecodingKey, EncodingKey, Header, Validation};
 
 pub fn create_token(
     user: &SlimUser,
@@ -13,7 +13,7 @@ pub fn create_token(
     encode(
         &Header::new(Algorithm::RS256),
         &claims,
-        include_bytes!("../../keys/rs256-4096-private.rsa"),
+        &EncodingKey::from_secret("secret".as_ref()),
     )
     .map_err(|e| ServiceError::BadRequest(e.to_string()))
 }
@@ -21,7 +21,7 @@ pub fn create_token(
 pub fn decode_token(token: &str) -> Result<Claims, ServiceError> {
     decode::<Claims>(
         token,
-        include_bytes!("../../keys/rs256-4096-public.pem"),
+        &DecodingKey::from_secret("secret".as_ref()),
         &Validation::new(Algorithm::RS256),
     )
     .map(|data| data.claims)

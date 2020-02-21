@@ -1,8 +1,8 @@
-use crate::user::model::SlimUser;
+use crate::modules::user::model::SlimUser;
 use anyhow::Result;
 use chrono::{Duration, Local};
+use serde::{Deserialize, Serialize};
 use std::convert::TryFrom;
-use uuid::Uuid;
 
 #[derive(Clone)]
 pub struct DecodedToken {
@@ -30,7 +30,7 @@ impl Claims {
     pub(crate) fn new(slim_user: &SlimUser, issuer: String, auth_duration_in_hour: u16) -> Self {
         let SlimUser {
             email,
-            user_uuid,
+            login_name,
             role,
             ..
         } = slim_user;
@@ -40,7 +40,7 @@ impl Claims {
 
         Claims {
             iss: issuer,
-            sub: user_uuid.to_string(),
+            sub: login_name.to_string(),
             email: email.clone(),
             role: role.clone(),
             iat: iat.timestamp(),
@@ -64,7 +64,7 @@ impl TryFrom<Claims> for SlimUser {
 
         Ok(SlimUser {
             email,
-            user_uuid: Uuid::parse_str(&sub)?,
+            login_name: sub,
             role,
         })
     }
