@@ -20,3 +20,8 @@ pub struct SlimUser {
     pub email: String,
     pub role: String,
 }
+
+#[derive(Debug, Queryable, juniper::GraphQLObject)]
+pub struct Logined {
+    pub token: String,
+}
