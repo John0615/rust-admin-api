@@ -1,26 +1,26 @@
-// use crate::database::{db_connection, Pool};
-// use crate::errors::{ServiceError, ServiceResult};
-// use crate::user::model::{SlimUser, User};
-// use crate::user::util::verify;
-// use actix_web::web;
-// use diesel::prelude::*;
+use crate::database::PooledConnection;
+use crate::errors::{ServiceError, ServiceResult};
+use crate::modules::user::model::{Logined, Users};
+use crate::graphql::schemas::root::Context;
+use crate::modules::user::util::verify;
+use diesel::prelude::*;
 
-// pub fn login(
-//     user_email: &str,
-//     user_password: &str,
-//     pool: web::Data<Pool>,
-// ) -> ServiceResult<SlimUser> {
-//     use crate::schema::users::dsl::{email, users};
+pub fn login(
+    context: &Context,
+    login_name: String,
+    password_digest: String,
+) -> ServiceResult<Logined> {
+    use crate::schema::users::dsl::{email, users};
 
-//     let conn = &db_connection(&pool)?;
-//     let user = users
-//         .filter(email.eq(user_email))
-//         .first::<User>(conn)
-//         .map_err(|_| ServiceError::Unauthorized)?;
+    let conn: &PooledConnection = &context.db;
+    let user = users
+        .filter(email.eq(login_name))
+        .first::<Users>(conn)
+        .map_err(|_| ServiceError::Unauthorized)?;
 
-//     if verify(&user, &user_password) {
-//         Ok(user.into())
-//     } else {
-//         Err(ServiceError::Unauthorized)
-//     }
-// }
+    if verify(&user, &password_digest) {
+        Ok(Logined{token: String::from("0w0w0w0w0")})
+    } else {
+        Err(ServiceError::Unauthorized)
+    }
+}

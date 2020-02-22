@@ -1,5 +1,6 @@
 pub(crate) mod service;
 pub mod model;
+pub mod util;
 
 use actix_web::{HttpResponse, Responder};
 

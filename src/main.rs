@@ -7,7 +7,6 @@ mod cli_args;
 mod database;
 mod errors;
 mod graphql;
-mod jwt;
 mod schema;
 mod modules;
 mod route;
