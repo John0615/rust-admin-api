@@ -10,11 +10,11 @@ pub fn login(
     login_name: String,
     password_digest: String,
 ) -> ServiceResult<Logined> {
-    use crate::schema::users::dsl::{email, users};
+    use crate::schema::users::dsl::{login_name as loginname, users};
 
     let conn: &PooledConnection = &context.db;
     let user = users
-        .filter(email.eq(login_name))
+        .filter(loginname.eq(login_name))
         .first::<Users>(conn)
         .map_err(|_| ServiceError::Unauthorized)?;
 

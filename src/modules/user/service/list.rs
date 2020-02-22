@@ -1,7 +1,7 @@
 use crate::database::PooledConnection;
 use crate::errors::ServiceResult;
-use crate::modules::user::model::{Users};
 use crate::graphql::schemas::root::Context;
+use crate::modules::user::model::Users;
 use diesel::prelude::*;
 
 pub(crate) fn find_all_users(context: &Context, limit: usize) -> ServiceResult<Vec<Users>> {
