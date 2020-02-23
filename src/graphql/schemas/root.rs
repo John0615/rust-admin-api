@@ -1,5 +1,6 @@
-use crate::modules::user::model::{Users, Logined};
+use crate::modules::user::model::Users;
 use crate::modules::user::service as user;
+use crate::jwt::model::Token;
 // use crate::cli_args::Opt;
 use crate::database::PooledConnection;
 use juniper::Context as JuniperContext;
@@ -36,7 +37,7 @@ pub struct MutationRoot;
 
 #[juniper::object(Context = Context)]
 impl MutationRoot {
-    pub fn login(context: &Context, login_name: String, password_digest: String) -> ServiceResult<Logined> {
+    pub fn login(context: &Context, login_name: String, password_digest: String) -> ServiceResult<Token> {
         user::login::login(&context, login_name, password_digest)
     }
 }

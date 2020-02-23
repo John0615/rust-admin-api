@@ -10,6 +10,7 @@ mod graphql;
 mod schema;
 mod modules;
 mod route;
+mod jwt;
 
 use actix_web::{ App, HttpServer };
 
