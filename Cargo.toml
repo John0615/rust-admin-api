@@ -1,9 +1,9 @@
 [package]
-name = "rust-admin"
+name = "rust-admin-api"
 version = "0.1.0"
 authors = ["john.zhao <john.zhao@newType.io>"]
 edition = "2018"
-
+keywords = ["rust", "actix-web", "graphql", "jwt", "postgres", "test"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

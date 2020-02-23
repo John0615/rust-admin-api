@@ -1,6 +1,5 @@
+use rust-admin-api;
 mod common;
-use adder;
-use super::*;
 use actix_web::{test, web, App};
 
 #[actix_rt::test]
