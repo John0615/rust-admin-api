@@ -22,7 +22,7 @@ pub fn login(
 
     if verify(&user, &password_digest) {
         // 签发token
-        println!("psospsp");
+        // println!("psospsp");
         match create_token( &SlimUser {
             login_name: user.login_name,
             email: user.email,
