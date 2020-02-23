@@ -10,7 +10,7 @@ pub fn create_token(
     let claims: Claims = Claims::new(user, auth_duration_in_hour);
 
     encode(
-        &Header::new(Algorithm::RS256),
+        &Header::default(),
         &claims,
         &EncodingKey::from_secret("secret".as_ref()),
     )
