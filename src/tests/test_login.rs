@@ -19,8 +19,8 @@ async fn test_index_get() {
         .configure(graphql::route)
     ).await;
     let req = test::TestRequest::post().uri("/graphql").to_request();
-    let resp = test::call_service(&mut app, req).await;
-    eprintln!("resp==result>>>>>>:{:?}", resp.response().error());
+    let resp = test::read_response_json(&mut app, req).await;
+    eprintln!("resp==result>>>>>>:{:?}", resp);
 
-    assert_eq!(resp.status(), 200);
+    assert_eq!(100, 200);
 }
