@@ -39,3 +39,25 @@ pub fn login(
         Err(ServiceError::Unauthorized)
     }
 }
+
+pub fn refresh_token(context: &Context) -> ServiceResult<Token> {
+    match context.token.jwt {
+        None => Err(ServiceError::Unauthorized),
+        Some(ref m) => {
+            eprintln!("ksksk{:?}", m);
+            // match create_token(
+            //     &SlimUser {
+            //         login_name: m.login_name,
+            //         email: m.email,
+            //         role: m.role,
+            //     },
+            //     24,
+            // ) {
+            //     Ok(r) => Ok(Token { bearer: Some(r) }),
+            //     Err(e) => Err(e),
+            // }
+            // Ok(m)
+            Ok(Token { bearer: Some(String::from("kkksk")) })
+        },
+    }
+}

@@ -1,4 +1,4 @@
-use crate::jwt::model::Token;
+use crate::jwt::model::{DecodedToken, Token};
 use crate::modules::user::model::Users;
 use crate::modules::user::service as user;
 // use crate::cli_args::Opt;
@@ -13,13 +13,14 @@ use juniper::RootNode;
 
 pub struct Context {
     pub db: Arc<PooledConnection>,
+    pub token: DecodedToken,
 }
 
 impl JuniperContext for Context {}
 
 impl Context {
-    pub fn new(pool: PooledConnection) -> Self {
-        Self { db: Arc::new(pool) }
+    pub fn new(pool: PooledConnection, token: DecodedToken,) -> Self {
+        Self { db: Arc::new(pool), token }
     }
 }
 
@@ -42,6 +43,13 @@ impl MutationRoot {
         password_digest: String,
     ) -> ServiceResult<Token> {
         user::login::login(&context, login_name, password_digest)
+    }
+
+    pub fn refresh_token(
+        context: &Context,
+        token: String,
+    ) -> ServiceResult<Token> {
+        user::login::refresh_token(&context)
     }
 }
 pub type Schema = RootNode<'static, QueryRoot, MutationRoot>;

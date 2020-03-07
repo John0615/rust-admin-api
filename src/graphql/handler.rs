@@ -5,15 +5,18 @@ use juniper::http::graphiql::graphiql_source;
 use crate::graphql::schemas::root::{Context, Schema};
 use juniper::http::GraphQLRequest;
 use crate::database::{db_connection, Pool};
+use crate::jwt::model::DecodedToken;
+
 
 pub(crate) async fn graphql(
     pool: web::Data<Pool>,
     schema: web::Data<Arc<Schema>>,
     data: web::Json<GraphQLRequest>,
+    token: DecodedToken,
 ) -> Result<HttpResponse, Error> {
     let db_pool = db_connection(&pool)?;
     println!("pspspsps");
-    let ctx = Context::new(db_pool);
+    let ctx = Context::new(db_pool, token);
 
     let res = data.execute(&schema, &ctx);
     let json = serde_json::to_string(&res).map_err(error::ErrorInternalServerError)?;
