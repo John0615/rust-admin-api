@@ -1,10 +1,10 @@
+use crate::jwt::model::Token;
 use crate::modules::user::model::Users;
 use crate::modules::user::service as user;
-use crate::jwt::model::Token;
 // use crate::cli_args::Opt;
 use crate::database::PooledConnection;
-use juniper::Context as JuniperContext;
 use crate::errors::ServiceResult;
+use juniper::Context as JuniperContext;
 use std::sync::Arc;
 
 // use crate::user::service as user;
@@ -30,14 +30,17 @@ impl QueryRoot {
     pub fn users(context: &Context) -> ServiceResult<Vec<Users>> {
         user::list::find_all_users(&context, 10)
     }
-
 }
 
 pub struct MutationRoot;
 
 #[juniper::object(Context = Context)]
 impl MutationRoot {
-    pub fn login(context: &Context, login_name: String, password_digest: String) -> ServiceResult<Token> {
+    pub fn login(
+        context: &Context,
+        login_name: String,
+        password_digest: String,
+    ) -> ServiceResult<Token> {
         user::login::login(&context, login_name, password_digest)
     }
 }

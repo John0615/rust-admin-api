@@ -27,6 +27,7 @@ jsonwebtoken = "7.0.0-alpha.2"
 anyhow = "1.0"
 shrinkwraprs = "0.2"
 md5 = "0.7.0"
+actix-service = "1.0.5"
 
 
 

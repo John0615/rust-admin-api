@@ -1543,6 +1543,7 @@ name = "rust-admin-api"
 version = "0.1.0"
 dependencies = [
  "actix-rt",
+ "actix-service",
  "actix-web",
  "anyhow",
  "chrono",

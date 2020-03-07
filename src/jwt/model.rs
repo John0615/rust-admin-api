@@ -1,8 +1,8 @@
 use crate::modules::user::model::SlimUser;
 use anyhow::Result;
 use chrono::{Duration, Local};
+use serde_derive::{Deserialize, Serialize};
 use std::convert::TryFrom;
-use serde_derive::{Serialize, Deserialize};
 
 #[derive(Clone)]
 pub struct DecodedToken {
@@ -56,7 +56,10 @@ impl TryFrom<Claims> for SlimUser {
 
     fn try_from(claims: Claims) -> Result<Self> {
         let Claims {
-            login_name,email, role, ..
+            login_name,
+            email,
+            role,
+            ..
         } = claims;
 
         Ok(SlimUser {

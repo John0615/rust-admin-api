@@ -1,10 +1,10 @@
 use crate::database::PooledConnection;
 use crate::errors::{ServiceError, ServiceResult};
-use crate::modules::user::model::{Users, SlimUser};
 use crate::graphql::schemas::root::Context;
-use crate::modules::user::util::verify;
 use crate::jwt::manager::create_token;
 use crate::jwt::model::Token;
+use crate::modules::user::model::{SlimUser, Users};
+use crate::modules::user::util::verify;
 use diesel::prelude::*;
 
 pub fn login(
@@ -23,15 +23,18 @@ pub fn login(
     if verify(&user, &password_digest) {
         // 签发token
         // println!("psospsp");
-        match create_token( &SlimUser {
-            login_name: user.login_name,
-            email: user.email,
-            role: user.role,
-        }, 24 ) {
+        match create_token(
+            &SlimUser {
+                login_name: user.login_name,
+                email: user.email,
+                role: user.role,
+            },
+            24,
+        ) {
             Ok(r) => Ok(Token { bearer: Some(r) }),
             Err(e) => Err(e),
         }
-        // Ok(Logined{token: String::from("0w0w0w0w0")})
+    // Ok(Logined{token: String::from("0w0w0w0w0")})
     } else {
         Err(ServiceError::Unauthorized)
     }
