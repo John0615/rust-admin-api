@@ -24,7 +24,7 @@ impl FromRequest for DecodedToken {
                     .and_then(|captures| captures.get(1))
             })
             .map(|v| v.as_str());
-
+        println!("token>>>>>: {:?}", token);
         futures::future::ready(Ok(match token {
             None => DecodedToken { jwt: None },
             Some(token) => match decode_token(token) {

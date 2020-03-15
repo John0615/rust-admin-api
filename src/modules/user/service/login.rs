@@ -41,6 +41,8 @@ pub fn login(
 }
 
 pub fn refresh_token(context: &Context) -> ServiceResult<Token> {
+    println!("content>>>>>:{:?}", context.token.jwt);
+
     match context.token.jwt {
         None => Err(ServiceError::Unauthorized),
         Some(ref m) => {

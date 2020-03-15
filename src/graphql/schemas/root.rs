@@ -45,10 +45,7 @@ impl MutationRoot {
         user::login::login(&context, login_name, password_digest)
     }
 
-    pub fn refresh_token(
-        context: &Context,
-        token: String,
-    ) -> ServiceResult<Token> {
+    pub fn refresh_token(context: &Context) -> ServiceResult<Token> {
         user::login::refresh_token(&context)
     }
 }

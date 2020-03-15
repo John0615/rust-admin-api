@@ -15,7 +15,6 @@ pub(crate) async fn graphql(
     token: DecodedToken,
 ) -> Result<HttpResponse, Error> {
     let db_pool = db_connection(&pool)?;
-    println!("pspspsps");
     let ctx = Context::new(db_pool, token);
 
     let res = data.execute(&schema, &ctx);
