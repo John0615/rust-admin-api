@@ -45,6 +45,16 @@ impl MutationRoot {
         user::login::login(&context, login_name, password_digest)
     }
 
+    pub fn create_user(
+        context: &Context,
+        login_name: String,
+        phone: String,
+        email: String,
+        role: String
+    ) -> ServiceResult<Vec<Users>> {
+        user::create_user::create_user(&context, 10)
+    }
+
     pub fn refresh_token(context: &Context) -> ServiceResult<Token> {
         user::login::refresh_token(&context)
     }
