@@ -13,7 +13,7 @@ mod route;
 mod jwt;
 
 use actix_web::{ App, HttpServer };
-
+use async_graphql::{EmptyMutation, EmptySubscription, Schema};
 
 
 #[actix_rt::main]
@@ -31,7 +31,7 @@ async fn main() -> std::io::Result<()> {
 
     // Create Juniper schema
     let schema = std::sync::Arc::new(crate::graphql::schemas::root::create_schema());
-
+    // let new_schema = Schema::build(QueryRoot, EmptyMutation, EmptySubscription);
     HttpServer::new(move || {
         App::new()
             .data(database::pool::establish_connection(opt.clone()))
