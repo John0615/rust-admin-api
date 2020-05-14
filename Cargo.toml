@@ -28,6 +28,8 @@ anyhow = "1.0"
 shrinkwraprs = "0.2"
 md5 = "0.7.0"
 actix-service = "1.0.5"
+async-graphql = "1.12.2"
+async-graphql-actix-web = "1.4.2"
 
 
 
