@@ -19,9 +19,12 @@ pub struct Context {
 impl JuniperContext for Context {}
 
 impl Context {
-    pub fn new(pool: PooledConnection, token: DecodedToken,) -> Self {
-        Self { db: Arc::new(pool), token }
-    }
+    // pub fn new(pool: PooledConnection, token: DecodedToken) -> Self {
+    //     Self {
+    //         db: Arc::new(pool),
+    //         token,
+    //     }
+    // }
 }
 
 pub struct QueryRoot;
@@ -50,7 +53,7 @@ impl MutationRoot {
         login_name: String,
         phone: String,
         email: String,
-        role: String
+        role: String,
     ) -> ServiceResult<Vec<Users>> {
         user::create_user::create_user(&context, 10)
     }
