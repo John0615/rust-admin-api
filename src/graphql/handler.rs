@@ -8,26 +8,26 @@ use crate::database::{db_connection, Pool};
 use crate::jwt::model::DecodedToken;
 
 
-pub(crate) async fn graphql(
-    pool: web::Data<Pool>,
-    schema: web::Data<Arc<Schema>>,
-    data: web::Json<GraphQLRequest>,
-    token: DecodedToken,
-) -> Result<HttpResponse, Error> {
-    let db_pool = db_connection(&pool)?;
-    let ctx = Context::new(db_pool, token);
+// pub(crate) async fn graphql(
+//     pool: web::Data<Pool>,
+//     schema: web::Data<Arc<Schema>>,
+//     data: web::Json<GraphQLRequest>,
+//     token: DecodedToken,
+// ) -> Result<HttpResponse, Error> {
+//     let db_pool = db_connection(&pool)?;
+//     let ctx = Context::new(db_pool, token);
 
-    let res = data.execute(&schema, &ctx);
-    let json = serde_json::to_string(&res).map_err(error::ErrorInternalServerError)?;
+//     let res = data.execute(&schema, &ctx);
+//     let json = serde_json::to_string(&res).map_err(error::ErrorInternalServerError)?;
 
-    Ok(HttpResponse::Ok()
-        .content_type("application/json")
-        .body(json))
-}
+//     Ok(HttpResponse::Ok()
+//         .content_type("application/json")
+//         .body(json))
+// }
 
-pub(super) fn graphiql() -> HttpResponse {
-    let html = graphiql_source("http://127.0.0.1:3000/graphql");
-    HttpResponse::Ok()
-        .content_type("text/html; charset=utf-8")
-        .body(html)
-}
+// pub(super) fn graphiql() -> HttpResponse {
+//     let html = graphiql_source("http://127.0.0.1:3000/graphql");
+//     HttpResponse::Ok()
+//         .content_type("text/html; charset=utf-8")
+//         .body(html)
+// }
